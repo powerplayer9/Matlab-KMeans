@@ -2,7 +2,6 @@ clc;
 clear all;
 close all;
 
-% Question 3
 
 img1 = imread('peppers.bmp');
 img2 = imread('lena.bmp');
