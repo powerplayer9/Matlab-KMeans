@@ -3,7 +3,7 @@ clear all;
 close all;
 
 
-img1 = imread('peppers.bmp');
+img1 = imread('peppers.bmp');  %% insert the path to your image here
 img2 = imread('lena.bmp');
 % K =3;
 iter = 50;
