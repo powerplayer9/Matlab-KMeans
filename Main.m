@@ -1,37 +1,34 @@
 clc;
-clear all;
+clear;
 close all;
 
-
-img1 = imread('peppers.bmp');  %% insert the path to your image here
+% Read images
+img1 = imread('peppers.bmp');  % Insert the path to your image here
 img2 = imread('lena.bmp');
-% K =3;
-iter = 50;
 
-%% KM
-%[Cost] = KMeans(K,img,iter)
-% Selecting Image to Run
+% Select image to run
 img = img2;
 
-%% K = 3
-K = 3;
-[Cost3K] = KMeans(K,img,iter);
+% K values and iteration count
+K_values = [3, 5, 7];
+iter = 50;
+Costs = cell(1, numel(K_values));
 
-%% K = 5
-K = 5;
-[Cost5K] = KMeans(K,img,iter);
+% Run KMeans for each K
+for i = 1:numel(K_values)
+    K = K_values(i);
+    Costs{i} = KMeans(K, img, iter);
+end
 
-%% K = 7
-K = 7;
-[Cost7K] = KMeans(K,img,iter);
-
-%% Cost plot
+% Plot costs
 figure();
-plot(Cost3K);
-hold on; plot(Cost5K);
-hold on; plot(Cost7K);
+hold on;
+colors = lines(numel(K_values));
+for i = 1:numel(K_values)
+    plot(Costs{i}, 'Color', colors(i,:));
+end
 grid on;
-xlabel('Iteration Count'); ylabel('Cost');
-legend('K=3','K=5','K=7');
-
-
+xlabel('Iteration Count');
+ylabel('Cost');
+legend(arrayfun(@(k) sprintf('K=%d', k), K_values, 'UniformOutput', false));
+hold off;
